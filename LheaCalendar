@@ -12,6 +12,7 @@ class Main {
     int[] monthNumber = new int [50];
     int[] dayNumber = new int [740];
     int[] yearIndividual = new int [100000];
+    //These are the arrays that the user inputs and conversions will be stored in.
     
     int yearTotal = 0; 
     int monthTotal = 0;
@@ -24,6 +25,8 @@ class Main {
     int preciseYear = 0;
     
     for (int i=1; i < 3; i++){
+    //This loop is so that I didn't have to write the same thing twice. Date 1 and Date 2.
+    
     Scanner input = new Scanner(System.in);
     
     System.out.println("Please enter the month of date "+ i +".");
@@ -47,6 +50,7 @@ class Main {
           }
           
       }
+      //The above code asks for the month.
     
     dates[i] = input.nextInt();
       if (months[i].equalsIgnoreCase("February") && dates[i] > 29){
@@ -58,6 +62,7 @@ class Main {
       }else {
         System.out.println("Yay. What year would you like to check " + months[i] +" " + dates[i] + "?");
       }
+      //The above code asks for the date.
       
     years[i] = input.nextInt();
     if (years[i] == 0){
@@ -67,6 +72,7 @@ class Main {
     }else {
       System.out.println(months[i] + " "+ dates[i] + ", " + years[i] + " What a great day! Is this BC or AD? Please use capital letters!");
     } //closes the else statement for years that don't exist.
+    //The above code asks for the year.
     
     Scanner input2 = new Scanner(System.in);
       eras[i] = input2.nextLine();
@@ -161,6 +167,7 @@ class Main {
         monthNumber[i] = 12;
         break;
     } //closes monthNumber switch
+    //The above code converts the month into a number so that it can be easier to calculate.
     
      boolean leapYear = ((years[i] % 4 == 0) && (years[i] % 100 != 0) || (years[i] % 400 == 0));
     /* I obtained this line of code from Stack Overflow ... I had no idea that the years 1700, 1800 & 1900 (for example) were not leap years! Wow. That makes this code more complex...
@@ -324,6 +331,8 @@ class Main {
     } //closes leap year dayNumber else
     
     } //closes for loop
+    
+    //When I initially planned out this code in my head... I wanted to account for leap years.
     
     
      if ((eras[1].equalsIgnoreCase("AD") && eras[2].equalsIgnoreCase("AD"))){
@@ -621,6 +630,8 @@ class Main {
        
        
      } // closes AD & AD if
+     // Lines 338-633 calculates the duration for the most common case, the duration between two AD dates.
+     
       else if (eras[1].equalsIgnoreCase("BC") && eras[2].equalsIgnoreCase("AD")){
        
        yearTotal = years[1] + years[2];
@@ -764,6 +775,7 @@ class Main {
      
      
      }// closes AD & BC else if
+     
      else {
        // if both dates are BC
        
@@ -1064,7 +1076,7 @@ class Main {
        
      } // closes else -- if botes dates are BC
     
-    
+    //The code below prints the dates in terms of 1. Total years 2. Total months 3. Total days (not including leap days) and 4. Total duration written in months, days and years.
     
     System.out.println("The duration of time between " + months[1] + " " + dates[1] + ", " + years[1] + " " + eras[1] + " and " + months[2] + " " + dates[2] + ", " + years[2] + " " + eras[2] + " is:" );
     System.out.println(" ");

@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+class Main {
+  public static void main(String[] args) {
+    int magicNumber = 0;
+    System.out.println("Please Enter a Whole Number between 0 and 99999:");
+    Scanner scnr = new Scanner(System.in);
+      magicNumber = scnr.nextInt();
+      
+      if ((magicNumber < 10 && magicNumber > 0) || (magicNumber > -10 && magicNumber < 0)) {
+        System.out.println("The reversal of your number is: " + magicNumber);
+      }
+      else if (magicNumber < 100 && magicNumber > 0){
+        int a = 0;
+        int b = 0;
+        b = magicNumber/10;
+        a = magicNumber%10;
+        System.out.println("The reversal of your number is: " + a + b);
+      }
+        else if (magicNumber < 1000 && magicNumber > 0){
+          int a = 0;
+          int b = 0;
+          int c = 0;
+          c = magicNumber/100;
+          b = (magicNumber%100)/10;
+          a = (magicNumber%100)%10;
+          System.out.println("The reversal of your number is: " + a + b + c);
+      }
+          else if (magicNumber < 10000 && magicNumber > 0){
+            int a = 0;
+            int b = 0;
+            int c = 0;
+            int d = 0;
+            d = magicNumber/1000;
+            c = (magicNumber%1000)/100;
+            b = ((magicNumber%1000)%100)/10;
+            a = ((magicNumber%1000)%100)%10;
+            System.out.println("The reversal of your number is: " + a + b +c +d);
+          }
+            else if (magicNumber < 100000 && magicNumber > 0){
+              int a = 0;
+              int b = 0;
+              int c = 0;
+              int d = 0;
+              int e = 0;
+              e = magicNumber/10000;
+              d = (magicNumber%10000)/1000;
+              c = ((magicNumber%10000)%1000)/100;
+              b = (((magicNumber%10000)%1000)%100)/10;
+              a = (((magicNumber%10000)%1000)%100)%10;
+              System.out.println("The reversal of your number is: " + a + b + c + d + e);
+            }
+      else{  
+      System.out.println(magicNumber + 
+                         " is a great Number. Please enter a positive number less than 99999 and try again.");
+      }
+      /* System.out.println("Would you like to enter another number?");
+      boolean anotherRound = True;
+      Scanner scnr = new Scanner(System.boolean);
+      anotherRound = scnr.nextBoolean(); */
+       return;
+  }
+}

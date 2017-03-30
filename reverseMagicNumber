@@ -10,6 +10,8 @@ class Main {
       if ((magicNumber < 10 && magicNumber > 0) || (magicNumber > -10 && magicNumber < 0)) {
         System.out.println("The reversal of your number is: " + magicNumber);
       }
+      //if the input number is one digit. The program will return the same number.
+      
       else if (magicNumber < 100 && magicNumber > 0){
         int a = 0;
         int b = 0;
@@ -17,6 +19,8 @@ class Main {
         a = magicNumber%10;
         System.out.println("The reversal of your number is: " + a + b);
       }
+      //if the program has two digits, the division by 10 and the remainder can be used to determine each digit.
+      
         else if (magicNumber < 1000 && magicNumber > 0){
           int a = 0;
           int b = 0;
@@ -26,6 +30,8 @@ class Main {
           a = (magicNumber%100)%10;
           System.out.println("The reversal of your number is: " + a + b + c);
       }
+      //there might have been a way to create a loop which checks for the size of the number and then performs division by multiples of 10 based on the size of the number.
+      
           else if (magicNumber < 10000 && magicNumber > 0){
             int a = 0;
             int b = 0;
@@ -54,6 +60,8 @@ class Main {
       System.out.println(magicNumber + 
                          " is a great Number. Please enter a positive number less than 99999 and try again.");
       }
+      //This program uses whole numbers. The code would look slightly different if it allowed for decimal input.
+      
       /* System.out.println("Would you like to enter another number?");
       boolean anotherRound = True;
       Scanner scnr = new Scanner(System.boolean);

@@ -1,0 +1,1079 @@
+import java.util.Scanner;
+
+class Main {
+  public static void main(String[] args) {
+    
+    System.out.println("This program will calculate the duration between two dates.");
+    
+    String months[] = new String[3];
+    int[] dates = new int[3];
+    int[] years = new int[3];
+    String eras[] = new String[3];
+    int[] monthNumber = new int [50];
+    int[] dayNumber = new int [740];
+    int[] yearIndividual = new int [100000];
+    
+    int yearTotal = 0; 
+    int monthTotal = 0;
+    int monthDiff = 0;
+    int dayTotal = 0;
+    int leapNumber = 0;
+    int notLeapCentury = 0;
+    int preciseDay = 0;
+    int preciseMonth = 0;
+    int preciseYear = 0;
+    
+    for (int i=1; i < 3; i++){
+    Scanner input = new Scanner(System.in);
+    
+    System.out.println("Please enter the month of date "+ i +".");
+      months[i] = input.nextLine(); 
+     if (months[i].equalsIgnoreCase("January") || months[i].equalsIgnoreCase("February") || months[i].equalsIgnoreCase("March") || months[i].equalsIgnoreCase("April") || months[i].equalsIgnoreCase("May") || months[i].equalsIgnoreCase("June") || months[i].equalsIgnoreCase("July") || months[i].equalsIgnoreCase("August") || months[i].equalsIgnoreCase("September") || months[i].equalsIgnoreCase("October") || months[i].equalsIgnoreCase("November") || months[i].equalsIgnoreCase("December")) { 
+          System.out.println("Great! What date in " + months[i] + "?");
+     }
+     else { 
+          System.out.println("I'm sorry. I couldn't read your month. Would you like to use numbers to represent the month? Please type 'yes' or 'no' in lowercase.");
+          String text = input.nextLine();
+          switch (text) {
+            case "yes":
+              System.out.println("This program will calculate the duration between two dates.");
+              System.out.println("Please enter the month of the first date");
+              break;
+            case "no":
+              System.out.println("Alright. Let's try again. Please do not use abbreviations.");
+              break;
+            default: 
+            System.out.println("I am sorry. I don't understand. Please start program again.");
+          }
+          
+      }
+    
+    dates[i] = input.nextInt();
+      if (months[i].equalsIgnoreCase("February") && dates[i] > 29){
+        System.out.println("Eek! February only has 28 or 29 days.");
+      } else if ((months[i].equalsIgnoreCase("April") || months[i].equalsIgnoreCase("June") || months[i].equalsIgnoreCase("September") || months[i].equalsIgnoreCase("November")) && dates[i] > 30){
+        System.out.println("Eek!" + months[i] + " only has 30 days.");
+      } else if ((months[i].equalsIgnoreCase("January") || months[i].equalsIgnoreCase("March") || months[i].equalsIgnoreCase("May") || months[i].equalsIgnoreCase("July") || months[i].equalsIgnoreCase("August") || months[i].equalsIgnoreCase("October") || months[i].equalsIgnoreCase("December")) && dates[i] > 31){
+        System.out.println("Eek!" + months[i] + " only has 31 days.");
+      }else {
+        System.out.println("Yay. What year would you like to check " + months[i] +" " + dates[i] + "?");
+      }
+      
+    years[i] = input.nextInt();
+    if (years[i] == 0){
+      System.out.println("Oh no! Neither 0 AD or 0 BC exist.");
+    } else if (years[i] == 1582 && months[i].equalsIgnoreCase("October") && (dates[i] == 5 || dates[i] == 6 || dates[i] == 7 || dates[i] == 8 || dates[i] == 9 || dates[i] == 10 || dates[i] == 11 || dates[i] == 12 || dates[i] == 13 || dates[i] == 14 )){
+      System.out.println("Oh no! The dates between October 5, 1582 and October 14, 1582 do not exist due to the transition between the Julian and Gregorian calendars.");
+    }else {
+      System.out.println(months[i] + " "+ dates[i] + ", " + years[i] + " What a great day! Is this BC or AD? Please use capital letters!");
+    } //closes the else statement for years that don't exist.
+    
+    Scanner input2 = new Scanner(System.in);
+      eras[i] = input2.nextLine();
+      switch (eras[i]) {
+            case "BC":
+              System.out.println("Great! I love studying ancient times.");
+              System.out.println(" ");
+              System.out.println(" ");
+              System.out.println(" ");
+              break;
+            case "AD":
+              System.out.println("Alrighty! Let's continue");
+              System.out.println(" ");
+              System.out.println(" ");
+              System.out.println(" ");
+              break;
+            default: 
+            System.out.println("I am sorry. I don't understand. Please make sure you are typing with capital letters. Please use BC instead of BCE and AD instead of CE. Thanks!");
+          } //closes era switch
+    
+    switch (months[i]){
+      case "January":
+        monthNumber[i] = 1;
+        break;
+      case "january":
+        monthNumber[i] = 1;
+        break;
+      case "February":
+        monthNumber[i] = 2;
+        break;
+      case "february":
+        monthNumber[i] = 2;
+        break;
+      case "March":
+        monthNumber[i] = 3;
+        break;
+      case "march":
+        monthNumber[i] = 3;
+        break;
+      case "April":
+        monthNumber[i] = 4;
+        break;
+      case "april":
+        monthNumber[i] = 4;
+        break;
+      case "May":
+        monthNumber[i] = 5;
+        break;
+      case "may":
+        monthNumber[i] = 5;
+        break;
+      case "June":
+        monthNumber[i] = 6;
+        break;
+      case "june":
+        monthNumber[i] = 6;
+        break;
+      case "July":
+        monthNumber[i] = 7;
+        break;
+      case "july":
+        monthNumber[i] = 7;
+        break;
+      case "August":
+        monthNumber[i] = 8;
+        break;
+      case "august":
+        monthNumber[i] = 8;
+        break;
+      case "September":
+        monthNumber[i] = 9;
+        break;
+      case "september":
+        monthNumber[i] = 9;
+        break;
+      case "October":
+        monthNumber[i] = 10;
+        break;
+      case "october":
+        monthNumber[i] = 10;
+        break;
+      case "November":
+        monthNumber[i] = 11;
+        break;
+      case "november":
+        monthNumber[i] = 11;
+        break;
+      case "December":
+        monthNumber[i] = 12;
+        break;
+      case "december":
+        monthNumber[i] = 12;
+        break;
+    } //closes monthNumber switch
+    
+     boolean leapYear = ((years[i] % 4 == 0) && (years[i] % 100 != 0) || (years[i] % 400 == 0));
+    /* I obtained this line of code from Stack Overflow ... I had no idea that the years 1700, 1800 & 1900 (for example) were not leap years! Wow. That makes this code more complex...
+    
+    I wanted to make an array of all the leap years using a boolean true or false check. But I could not figure out how to make an array that only included the true values. And count the number of true values. 
+    
+    I intended for this program to be much more precise. But I couldn't figure out how to make an array and count only the true values (thus only the leap years... excluding the centuries like 1700, 1800 and 1900 which were not leap years.)
+    
+    */
+    
+    if (leapYear)
+      switch (months[i]){
+      case "January":
+        dayNumber[i] = dates[i];
+        break;
+      case "january":
+        dayNumber[i] = dates[i];
+        break;
+      case "February":
+        dayNumber[i] = 31 + dates[i];
+        break;
+      case "february":
+        dayNumber[i] = 31 + dates[i];
+        break;
+      case "March":
+        dayNumber[i] = 60 + dates[i];
+        break;
+      case "march":
+        dayNumber[i] = 60 + dates[i];
+        break;
+      case "April":
+        dayNumber[i] = 91 + dates[i];
+        break;
+      case "april":
+        dayNumber[i] = 91 + dates[i];
+        break;
+      case "May":
+        dayNumber[i] = 121 + dates[i];
+        break;
+      case "may":
+        dayNumber[i] = 121 + dates[i];
+        break;
+      case "June":
+        dayNumber[i] = 152 + dates[i];
+        break;
+      case "june":
+        dayNumber[i] = 152 + dates[i];
+        break;
+      case "July":
+        dayNumber[i] = 182 + dates[i];
+        break;
+      case "july":
+        dayNumber[i] = 182 + dates[i];
+        break;
+      case "August":
+        dayNumber[i] = 213 + dates[i];
+        break;
+      case "august":
+        dayNumber[i] = 213 + dates[i];
+        break;
+      case "September":
+        dayNumber[i] = 244 + dates[i];
+        break;
+      case "september":
+        dayNumber[i] = 244 + dates[i];
+        break;
+      case "October":
+        dayNumber[i] = 274 + dates[i];
+        break;
+      case "october":
+        dayNumber[i] = 274 + dates[i];
+        break;
+      case "November":
+        dayNumber[i] = 305 + dates[i];
+        break;
+      case "november":
+        dayNumber[i] = 305 + dates[i];
+        break;
+      case "December":
+        dayNumber[i] = 335 + dates[i];
+        break;
+      case "december":
+        dayNumber[i] = 335 + dates[i];
+        break;
+    }
+      else{
+    switch (months[i]){
+      case "January":
+        dayNumber[i] = dates[i];
+        break;
+      case "january":
+        dayNumber[i] = dates[i];
+        break;
+      case "February":
+        dayNumber[i] = 31 + dates[i];
+        break;
+      case "february":
+        dayNumber[i] = 31 + dates[i];
+        break;
+      case "March":
+        dayNumber[i] = 59 + dates[i];
+        break;
+      case "march":
+        dayNumber[i] = 59 + dates[i];
+        break;
+      case "April":
+        dayNumber[i] = 90 + dates[i];
+        break;
+      case "april":
+        dayNumber[i] = 90 + dates[i];
+        break;
+      case "May":
+        dayNumber[i] = 120 + dates[i];
+        break;
+      case "may":
+        dayNumber[i] = 120 + dates[i];
+        break;
+      case "June":
+        dayNumber[i] = 151 + dates[i];
+        break;
+      case "june":
+        dayNumber[i] = 151 + dates[i];
+        break;
+      case "July":
+        dayNumber[i] = 181 + dates[i];
+        break;
+      case "july":
+        dayNumber[i] = 181 + dates[i];
+        break;
+      case "August":
+        dayNumber[i] = 212 + dates[i];
+        break;
+      case "august":
+        dayNumber[i] = 212 + dates[i];
+        break;
+      case "September":
+        dayNumber[i] = 243 + dates[i];
+        break;
+      case "september":
+        dayNumber[i] = 243 + dates[i];
+        break;
+      case "October":
+        dayNumber[i] = 273 + dates[i];
+        break;
+      case "october":
+        dayNumber[i] = 273 + dates[i];
+        break;
+      case "November":
+        dayNumber[i] = 304 + dates[i];
+        break;
+      case "november":
+        dayNumber[i] = 304 + dates[i];
+        break;
+      case "December":
+        dayNumber[i] = 334 + dates[i];
+        break;
+      case "december":
+        dayNumber[i] = 334 + dates[i];
+        break;
+    } //closes dayNumber switch
+    } //closes leap year dayNumber else
+    
+    } //closes for loop
+    
+    
+     if ((eras[1].equalsIgnoreCase("AD") && eras[2].equalsIgnoreCase("AD"))){
+       
+       
+       if (years[2] == years[1]){
+         yearTotal = 0;
+         preciseYear = yearTotal;
+         
+         if(monthNumber[1] == monthNumber[2]){
+           monthTotal = 0;
+           
+           if (dayNumber[1] == dayNumber[2]){
+             dayTotal = 0;
+             preciseDay = 0;
+           }
+           else if (dayNumber[2] > dayNumber[1]){
+             dayTotal = dayNumber[2] - dayNumber[1];
+             preciseDay = dayNumber[2] - dayNumber[1];
+           }//closes day2> day1 
+           else{
+           //day1>day2
+           dayTotal = dayNumber[1] - dayNumber[2];
+           preciseDay = dayNumber[1] - dayNumber[2];
+           }//closes day1>day2
+         }//closes month=month
+         else if(monthNumber[2] > monthNumber[1]){
+           monthTotal = monthNumber[2] - monthNumber[1];
+           preciseMonth = monthNumber[2] - monthNumber[1];
+           dayTotal = dayNumber[2] - dayNumber[1];
+           
+           if (dates[1] == dates[2]){
+             preciseDay = 0;
+           }
+           else if (dayNumber[2] > dayNumber[1]){
+             preciseDay = dates[2] - dates[1];
+           }
+           else{
+             // day1 > day2
+             
+             switch (monthNumber[2] - 1){
+            case 1:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 2:
+              preciseDay = (28 - dates[1]) + dates[2];
+              break;
+            case 3:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 4:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 5:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 6:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 7:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 8:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 9:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 10:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 11:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 12:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+          } //closes switch
+           }
+         }// closes month2>month1
+         else{
+           //month1>month2
+           monthTotal = monthNumber[1] - monthNumber[2];
+           preciseMonth = monthNumber[1] - monthNumber[2];
+           dayTotal = dayNumber[1] - dayNumber[2];
+           preciseDay = dayNumber[1] - dayNumber[2];
+         }
+       }//closes years2=years1
+       
+       
+       
+       else if (years[2] > years[1]){
+         yearTotal = years[2] - years[1];
+         
+         if ( dayNumber[2] >= dayNumber[1]){
+           preciseYear = yearTotal;
+         }else{
+           preciseYear = yearTotal - 1;
+         }
+         
+        leapNumber = (yearTotal / 4) - notLeapCentury;
+        
+        if (monthNumber[1] == monthNumber[2]){
+          
+          if (dayNumber[1] == dayNumber[2]){
+            preciseDay = 0;
+          } else if (dayNumber[2] > dayNumber[1]){
+            dayTotal = dayNumber[2] - dayNumber[1];
+            preciseDay = dates[2] - dates [1];
+          }else {
+            //day1>day2
+            dayTotal = dayNumber[1] - dayNumber[2];
+            preciseDay = dates[1] - dates[2];
+          }
+        
+        }//close month=month
+        else if (monthNumber[1] > monthNumber[2]){
+          
+          preciseDay = ((365 - dayNumber[1]) + (dayNumber[2])) + leapNumber;
+          
+          monthTotal = (yearTotal * 12) + ( (12- monthNumber[1]) + monthNumber[2]);
+          
+          dayTotal = (yearTotal * 365) + ( (365 - dayNumber[1]) + dayNumber[2] );
+            
+            if (dates[2] == dates[1]){
+              preciseDay = 0;
+            }else if (dayNumber [2] > dayNumber[1]){
+            
+            switch (monthNumber[1]){
+            case 1:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 2:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 3:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 4:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 5:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 6:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 7:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 8:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 9:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 10:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 11:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 12:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+          }
+            
+            preciseMonth = (12- monthNumber[1]) + monthNumber[2];
+            } else{
+              //if dayNumber1>dayNumber2
+           preciseMonth = ((12 - monthNumber[1]) - 1) + monthNumber[2];
+        }//close else  
+        }//close if month1>month2
+        else { 
+          //month2>month1
+          preciseDay = dayNumber[2] - dayNumber[1];
+          dayTotal = (yearTotal * 365) + (dayNumber[2] - dayNumber[1]);
+          monthTotal = (yearTotal * 12) + (monthNumber[2] - monthNumber[1]);
+          
+          if (dayNumber[2] >= dayNumber[1]){
+            preciseMonth = monthNumber[2] - monthNumber[1];
+          }else {
+            preciseMonth = (monthNumber[2] - monthNumber[1]) - 1;
+          }
+          
+          
+        }//closes else
+        
+       }//closes years2>years1
+       else {
+         //years1>years2
+         
+          yearTotal = years[1] - years[2];
+         
+         if ( dayNumber[1] >= dayNumber[2]){
+           preciseYear = yearTotal;
+         }else{
+           preciseYear = yearTotal - 1;
+         }
+         
+        leapNumber = (yearTotal / 4) - notLeapCentury;
+        
+        if (monthNumber[2] == monthNumber[1]){
+          
+          if (dayNumber[2] == dayNumber[1]){
+            preciseDay = 0;
+          } else if (dayNumber[1] > dayNumber[2]){
+            dayTotal = dayNumber[1] - dayNumber[2];
+            preciseDay = dates[1] - dates [2];
+          }else {
+            //day1>day2
+            dayTotal = dayNumber[2] - dayNumber[1];
+            preciseDay = dates[2] - dates[1];
+          }
+        
+        }//close month=month
+        else if (monthNumber[2] > monthNumber[1]){
+          
+          preciseDay = ((365 - dayNumber[2]) + (dayNumber[1])) + leapNumber;
+          
+          monthTotal = (yearTotal * 12) + ( (12- monthNumber[2]) + monthNumber[1]);
+          
+          dayTotal = (yearTotal * 365) + ( (365 - dayNumber[2]) + dayNumber[1] );
+            
+            if (dates[1] == dates[2]){
+              preciseDay = 0;
+            }else if (dayNumber [1] > dayNumber[2]){
+            
+            switch (monthNumber[2]){
+            case 1:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 2:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 3:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 4:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 5:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 6:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 7:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 8:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 9:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 10:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 11:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 12:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+          }
+            
+            preciseMonth = (12- monthNumber[2]) + monthNumber[1];
+            } else{
+              //if dayNumber1>dayNumber2
+           preciseMonth = ((12 - monthNumber[2]) - 1) + monthNumber[1];
+        }//close else  
+        }//close if month1>month2
+        else { 
+          //month2>month1
+          preciseDay = dayNumber[1] - dayNumber[2];
+          dayTotal = (yearTotal * 365) + (dayNumber[1] - dayNumber[2]);
+          monthTotal = (yearTotal * 12) + (monthNumber[1] - monthNumber[2]);
+          
+          if (dayNumber[1] >= dayNumber[2]){
+            preciseMonth = monthNumber[1] - monthNumber[2];
+          }else {
+            preciseMonth = (monthNumber[1] - monthNumber[2]) - 1;
+          }
+          
+          
+        }//closes else month2>month1
+         
+       }//closes years[1] > years [2]
+       
+  
+  
+       
+       
+       
+       
+     } // closes AD & AD if
+      else if (eras[1].equalsIgnoreCase("BC") && eras[2].equalsIgnoreCase("AD")){
+       
+       yearTotal = years[1] + years[2];
+  
+       if(dayNumber[2] >= dayNumber[1]){
+         preciseYear = yearTotal;
+       }
+       else {
+         preciseYear = yearTotal - 1;
+       }
+     
+       if (monthNumber[2] >= monthNumber[1]){
+       monthTotal = (yearTotal * 12) + (monthNumber[2] - monthNumber[1]);
+       preciseMonth = monthNumber[2] - monthNumber[1];
+       } else {
+         //month1>month2
+         monthTotal = (yearTotal * 12) + ((12 - monthNumber[1]) + monthNumber[2]);
+         preciseMonth = (12 - monthNumber[1]) + monthNumber[2];
+       }
+       
+       if (dayNumber[2] >= dayNumber[1]){
+       dayTotal = (yearTotal * 365) + (dayNumber[2] - dayNumber[1]);
+       preciseDay = dates[2] - dates[1];
+       } else if(dates[1] == dates[2] ){
+         preciseDay = 0;
+       }else {
+         dayTotal = (yearTotal * 365) + ((365 - dayNumber[1]) + dayNumber[2]);
+          switch (monthNumber[2] - 1){
+            case 1:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 2:
+              preciseDay = (28 - dates[1]) + dates[2];
+              break;
+            case 3:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 4:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 5:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 6:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 7:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 8:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 9:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 10:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 11:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 12:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+          } //closes switch
+       }
+       
+       
+       
+       
+       
+     } // closes BC & AD else if
+     
+     
+     else if (eras[1].equalsIgnoreCase("AD") && eras[2].equalsIgnoreCase("BC")){
+     
+     yearTotal = years[1] + years [2];
+     
+     if(dayNumber[1] >= dayNumber[2]){
+         preciseYear = yearTotal;
+       }
+       else {
+         preciseYear = yearTotal - 1;
+       }
+     
+     if (monthNumber[1] >= monthNumber[2]){
+       monthTotal = (yearTotal * 12) + (monthNumber[1] - monthNumber[2]);
+       preciseMonth = monthNumber[1] - monthNumber[2];
+       } else {
+         //month2>month1
+         monthTotal = (yearTotal * 12) + ((12 - monthNumber[2]) + monthNumber[1]);
+         preciseMonth = (12 - monthNumber[2]) + monthNumber[1];
+       }
+       
+       if (dayNumber[1] >= dayNumber[2]){
+       dayTotal = (yearTotal * 365) + (dayNumber[1] - dayNumber[2]);
+       preciseDay = dates[1] - dates[2];
+       } else if(dates[1] == dates[2] ){
+         preciseDay = 0;
+       }else {
+         dayTotal = (yearTotal * 365) + ((365 - dayNumber[2]) + dayNumber[1]);
+          switch (monthNumber[1] - 1){
+            case 1:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+            case 2:
+              preciseDay = (28 - dates[2]) + dates[1];
+              break;
+            case 3:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+            case 4:
+              preciseDay = (30 - dates[2]) + dates[1];
+              break;
+            case 5:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+            case 6:
+              preciseDay = (30 - dates[2]) + dates[1];
+              break;
+            case 7:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+            case 8:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+            case 9:
+              preciseDay = (30 - dates[2]) + dates[1];
+              break;
+            case 10:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+            case 11:
+              preciseDay = (30 - dates[2]) + dates[1];
+              break;
+            case 12:
+              preciseDay = (31 - dates[2]) + dates[1];
+              break;
+          } //closes switch
+       }
+     
+     
+     }// closes AD & BC else if
+     else {
+       // if both dates are BC
+       
+       if ((years[1] > 46) || (years[2] > 46)){
+         System.out.println("WARNING: The Julian Calendar began in 45 BC. Thus all of these dates are approximate & fictitious.");
+       } else {
+         System.out.println("Great!");
+       }
+       
+       if (years[2] == years[1]){
+         yearTotal = 0;
+         preciseYear = yearTotal;
+         
+         if(monthNumber[1] == monthNumber[2]){
+           monthTotal = 0;
+           
+           if (dayNumber[1] == dayNumber[2]){
+             dayTotal = 0;
+             preciseDay = 0;
+           }
+           else if (dayNumber[2] > dayNumber[1]){
+             dayTotal = dayNumber[2] - dayNumber[1];
+             preciseDay = dayNumber[2] - dayNumber[1];
+           }//closes day2> day1 
+           else{
+           //day1>day2
+           dayTotal = dayNumber[1] - dayNumber[2];
+           preciseDay = dayNumber[1] - dayNumber[2];
+           }//closes day1>day2
+         }//closes month=month
+         else if(monthNumber[2] > monthNumber[1]){
+           monthTotal = monthNumber[2] - monthNumber[1];
+           preciseMonth = monthNumber[2] - monthNumber[1];
+           dayTotal = dayNumber[2] - dayNumber[1];
+           
+           if (dates[1] == dates[2]){
+             preciseDay = 0;
+           }
+           else if (dayNumber[2] > dayNumber[1]){
+             preciseDay = dates[2] - dates[1];
+           }
+           else{
+             // day1 > day2
+             
+             switch (monthNumber[2] - 1){
+            case 1:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 2:
+              preciseDay = (28 - dates[1]) + dates[2];
+              break;
+            case 3:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 4:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 5:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 6:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 7:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 8:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 9:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 10:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+            case 11:
+              preciseDay = (30 - dates[1]) + dates[2];
+              break;
+            case 12:
+              preciseDay = (31 - dates[1]) + dates[2];
+              break;
+          } //closes switch
+           }
+         }// closes month2>month1
+         else{
+           //month1>month2
+           monthTotal = monthNumber[1] - monthNumber[2];
+           preciseMonth = monthNumber[1] - monthNumber[2];
+           dayTotal = dayNumber[1] - dayNumber[2];
+           preciseDay = dayNumber[1] - dayNumber[2];
+         }
+       }//closes years2=years1
+       
+       
+       
+       else if (years[2] > years[1]){
+         yearTotal = years[2] - years[1];
+         
+         if ( dayNumber[2] >= dayNumber[1]){
+           preciseYear = yearTotal;
+         }else{
+           preciseYear = yearTotal - 1;
+         }
+         
+        leapNumber = (yearTotal / 4) - notLeapCentury;
+        
+        if (monthNumber[1] == monthNumber[2]){
+          
+          if (dayNumber[1] == dayNumber[2]){
+            preciseDay = 0;
+          } else if (dayNumber[2] > dayNumber[1]){
+            dayTotal = dayNumber[2] - dayNumber[1];
+            preciseDay = dates[2] - dates [1];
+          }else {
+            //day1>day2
+            dayTotal = dayNumber[1] - dayNumber[2];
+            preciseDay = dates[1] - dates[2];
+          }
+        
+        }//close month=month
+        else if (monthNumber[1] > monthNumber[2]){
+          
+          preciseDay = ((365 - dayNumber[1]) + (dayNumber[2])) + leapNumber;
+          
+          monthTotal = (yearTotal * 12) + ( (12- monthNumber[1]) + monthNumber[2]);
+          
+          dayTotal = (yearTotal * 365) + ( (365 - dayNumber[1]) + dayNumber[2] );
+            
+            if (dates[2] == dates[1]){
+              preciseDay = 0;
+            }else if (dayNumber [2] > dayNumber[1]){
+            
+            switch (monthNumber[1]){
+            case 1:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 2:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 3:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 4:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 5:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 6:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 7:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 8:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 9:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 10:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 11:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+            case 12:
+              preciseDay = (365 - dayNumber[1]) + dayNumber[2];
+              break;
+          }
+            
+            preciseMonth = (12- monthNumber[1]) + monthNumber[2];
+            } else{
+              //if dayNumber1>dayNumber2
+           preciseMonth = ((12 - monthNumber[1]) - 1) + monthNumber[2];
+        }//close else  
+        }//close if month1>month2
+        else { 
+          //month2>month1
+          preciseDay = dayNumber[2] - dayNumber[1];
+          dayTotal = (yearTotal * 365) + (dayNumber[2] - dayNumber[1]);
+          monthTotal = (yearTotal * 12) + (monthNumber[2] - monthNumber[1]);
+          
+          if (dayNumber[2] >= dayNumber[1]){
+            preciseMonth = monthNumber[2] - monthNumber[1];
+          }else {
+            preciseMonth = (monthNumber[2] - monthNumber[1]) - 1;
+          }
+          
+          
+        }//closes else
+        
+       }//closes years2>years1
+       else {
+         //years1>years2
+         
+          yearTotal = years[1] - years[2];
+         
+         if ( dayNumber[1] >= dayNumber[2]){
+           preciseYear = yearTotal;
+         }else{
+           preciseYear = yearTotal - 1;
+         }
+         
+        leapNumber = (yearTotal / 4) - notLeapCentury;
+        
+        if (monthNumber[2] == monthNumber[1]){
+          
+          if (dayNumber[2] == dayNumber[1]){
+            preciseDay = 0;
+          } else if (dayNumber[1] > dayNumber[2]){
+            dayTotal = dayNumber[1] - dayNumber[2];
+            preciseDay = dates[1] - dates [2];
+          }else {
+            //day1>day2
+            dayTotal = dayNumber[2] - dayNumber[1];
+            preciseDay = dates[2] - dates[1];
+          }
+        
+        }//close month=month
+        else if (monthNumber[2] > monthNumber[1]){
+          
+          preciseDay = ((365 - dayNumber[2]) + (dayNumber[1])) + leapNumber;
+          
+          monthTotal = (yearTotal * 12) + ( (12- monthNumber[2]) + monthNumber[1]);
+          
+          dayTotal = (yearTotal * 365) + ( (365 - dayNumber[2]) + dayNumber[1] );
+            
+            if (dates[1] == dates[2]){
+              preciseDay = 0;
+            }else if (dayNumber [1] > dayNumber[2]){
+            
+            switch (monthNumber[2]){
+            case 1:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 2:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 3:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 4:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 5:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 6:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 7:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 8:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 9:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 10:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 11:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+            case 12:
+              preciseDay = (365 - dayNumber[2]) + dayNumber[1];
+              break;
+          }
+            
+            preciseMonth = (12- monthNumber[2]) + monthNumber[1];
+            } else{
+              //if dayNumber1>dayNumber2
+           preciseMonth = ((12 - monthNumber[2]) - 1) + monthNumber[1];
+        }//close else  
+        }//close if month1>month2
+        else { 
+          //month2>month1
+          preciseDay = dayNumber[1] - dayNumber[2];
+          dayTotal = (yearTotal * 365) + (dayNumber[1] - dayNumber[2]);
+          monthTotal = (yearTotal * 12) + (monthNumber[1] - monthNumber[2]);
+          
+          if (dayNumber[1] >= dayNumber[2]){
+            preciseMonth = monthNumber[1] - monthNumber[2];
+          }else {
+            preciseMonth = (monthNumber[1] - monthNumber[2]) - 1;
+          }
+          
+          
+        }//closes else month2>month1
+         
+       }//closes years[1] > years [2]
+       
+       
+       
+       
+       
+     } // closes else -- if botes dates are BC
+    
+    
+    
+    System.out.println("The duration of time between " + months[1] + " " + dates[1] + ", " + years[1] + " " + eras[1] + " and " + months[2] + " " + dates[2] + ", " + years[2] + " " + eras[2] + " is:" );
+    System.out.println(" ");
+    System.out.println("In Years: " + yearTotal + " year(s)");
+    System.out.println("In Months: " + monthTotal + " months");
+    System.out.println("In Days: " + dayTotal + " days");
+    System.out.println("Or " + preciseYear + " years " + preciseMonth + " months and " + preciseDay + " days." );
+    System.out.println(" ");
+    System.out.println("Thank you for asking!");
+    
+  } //closes public
+} //closes class
